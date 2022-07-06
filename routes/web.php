@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogoutController;
 use App\Http\Livewire\Admin\Auth\Login as AuthLogin;
 use App\Http\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Http\Livewire\Admin\Product as AdminProduct;
@@ -26,10 +27,15 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/user/login', Login::class)->name('users.login');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verify', 'status'])->group(function () {
     Route::get('/user/dashboard', Dashboard::class)->name('users.dashboard');
     Route::get('/user/product', Product::class)->name('users.product');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/logout', [LogoutController::class, 'index'])->name('users.logout');
+});
+
 
 Route::middleware(['guest:admin'])->group(function () {
     Route::get('/admin', AuthLogin::class)->name('admin.login');

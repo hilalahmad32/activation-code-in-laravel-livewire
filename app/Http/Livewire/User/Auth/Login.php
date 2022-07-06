@@ -33,13 +33,17 @@ class Login extends Component
 
         $user = Auth::attempt(['email' => $this->email, 'password' => $this->password]);
         if ($user) {
-            $users = Auth::user()->status;
-            if ($users == 1) {
-                session()->flash('success', 'Login Successfully');
-                $this->resetField();
-                return redirect(route('users.dashboard'));
+            $users = Auth::user();
+            if ($users->remember_token != null) {
+                if ($users->status == 1) {
+                    session()->flash('success', 'Login Successfully');
+                    $this->resetField();
+                    return redirect(route('users.dashboard'));
+                } else {
+                    session()->flash('error', 'You are not approved');
+                }
             } else {
-                session()->flash('error', 'You are not approved');
+                session()->flash('error', 'Please Verify your Gamil');
             }
         } else {
             session()->flash('error', 'Invalid Email and Password');

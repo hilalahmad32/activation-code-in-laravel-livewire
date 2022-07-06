@@ -23,6 +23,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="username" class="control-label">Username:</label>
+                            <input type="text" wire:model.lazy='username' class="form-control" autofocus="1">
+                            @error('username')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="email" class="control-label">Email Address</label>
                             <input type="email" wire:model.lazy="email" class="form-control" autofocus="1">
                             @error('email')
@@ -35,6 +42,17 @@
                             @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="profile" class="control-label">Upload profile</label>
+                            <input type="file" wire:model.lazy='profile' class="form-control">
+                            @error('profile')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            @if ($profile)
+                                <img src="{{ $profile->temporaryUrl() }}" width="48" height="48"
+                                    alt="">
+                            @endif
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-info btn-block">Register</button>

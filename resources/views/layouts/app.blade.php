@@ -1,3 +1,20 @@
+{{-- @php
+$users = Auth::user();
+if ($users->remember_token != null) {
+    if ($users->status == 1) {
+        return redirect(route('users.dashboard'));
+    } else {
+        echo 'You are not approved';
+        die();
+      echo "<a g></a>"
+    }
+} else {
+    echo 'please Approve your  acount';
+    die();
+}
+@endphp --}}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
